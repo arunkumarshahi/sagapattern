@@ -3,7 +3,7 @@ call cls
  call mvn clean install -DskipTests
 
  cd inventory-service
-rem  call docker build -t arunkumarshahi/inventoryservice .
+  call docker build -t arunkumarshahi/inventoryservice .
 
  cd ..
   cd order-orchestrator
@@ -11,15 +11,17 @@ rem  call docker build -t arunkumarshahi/inventoryservice .
  
   cd ..
   cd order-service
- rem call docker build -t arunkumarshahi/orderservice .
+  call docker build -t arunkumarshahi/orderservice .
  
   cd ..
   cd payment-service
- rem call docker build -t arunkumarshahi/paymentservice .
- 
+  call docker build -t arunkumarshahi/paymentservice .
+
+ rem connect orchestrator serice to network1 bridge
+ call docker network connect custom_frontend1 orchestration
 cd ..
 call docker-compose up -d
 rem call docker ps
-rem call docker logs --follow  saga-choreography_paymentservice_1
+ call docker logs --follow  paymentservice
 
- call docker logs --follow  payment
+ rem call docker logs --follow  payment
