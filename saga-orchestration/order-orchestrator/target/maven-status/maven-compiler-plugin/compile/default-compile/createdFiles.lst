@@ -1,0 +1,12 @@
+com\vinsguru\saga\OrchestratorApplication.class
+com\vinsguru\saga\service\WorkflowStepStatus.class
+com\vinsguru\saga\service\Workflow.class
+com\vinsguru\saga\service\WorkflowException.class
+com\vinsguru\saga\service\OrchestratorService.class
+com\vinsguru\saga\config\WebClientFilter.class
+com\vinsguru\saga\service\WorkflowStep.class
+com\vinsguru\saga\config\WebClientConfig.class
+com\vinsguru\saga\service\steps\PaymentStep.class
+com\vinsguru\saga\config\OrchestratorConfig.class
+com\vinsguru\saga\service\steps\InventoryStep.class
+com\vinsguru\saga\service\OrderWorkflow.class

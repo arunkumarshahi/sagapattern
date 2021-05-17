@@ -1,0 +1,3 @@
+com\vinsguru\payment\controller\PaymentController.class
+com\vinsguru\payment\PaymentApplication.class
+com\vinsguru\payment\service\PaymentService.class

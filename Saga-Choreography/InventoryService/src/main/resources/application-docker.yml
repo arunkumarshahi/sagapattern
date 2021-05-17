@@ -1,0 +1,30 @@
+
+spring:
+  application:
+    name: order-app
+  cloud:
+    stream:
+      function:
+        definition: paymentEventConsumer;orderSupplier
+      bindings:
+        orderSupplier-out-0:
+          destination: order-event
+        paymentEventConsumer-in-0:
+          destination: payment-event
+
+  kafka:
+    bootstrap-servers: "broker:9092"
+    enabled: true
+    streams:
+      application-id: order-app
+  r2dbc:
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+    password: "${SPRING_DATASOURCE_PASSWORD}"
+    url: "${SPRING_DATASOURCE_URL}"
+    username: "${SPRING_DATASOURCE_USERNAME}"
+  config:
+    activate:
+      on-profile: docker

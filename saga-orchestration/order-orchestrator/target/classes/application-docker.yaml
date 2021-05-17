@@ -1,0 +1,26 @@
+server:
+  port: 8083
+---
+spring.cloud.stream:
+  function:
+    definition: processor
+  bindings:
+    processor-in-0:
+      destination: order-created
+    processor-out-0:
+      destination: order-updated
+
+spring:
+  kafka:
+    bootstrap-servers: "broker:9092"
+    enabled: true
+    streams:
+      application-id: order-app
+---
+service:
+  endpoints:
+    inventory: "http://inventoryservice:8081"
+    payment: "http://paymentservice:8082"
+
+---
+

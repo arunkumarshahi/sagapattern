@@ -1,0 +1,779 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.5)
+
+2021-05-17 03:21:02.196  INFO 1 --- [           main] c.vinsguru.saga.OrchestratorApplication  : Starting OrchestratorApplication v0.0.1-SNAPSHOT using Java 16.0.1 on 8cbae34311b6 with PID 1 (/app.jar started by root in /)
+2021-05-17 03:21:02.213  INFO 1 --- [           main] c.vinsguru.saga.OrchestratorApplication  : The following profiles are active: docker
+2021-05-17 03:21:08.793  INFO 1 --- [           main] o.s.c.a.ConfigurationClassEnhancer       : @Bean method FunctionConfiguration.po is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+2021-05-17 03:21:08.837  INFO 1 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2021-05-17 03:21:08.849  INFO 1 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2021-05-17 03:21:09.897  INFO 1 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2021-05-17 03:21:11.685  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-17 03:21:11.725  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-17 03:21:11.729  INFO 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-17 03:21:13.838  INFO 1 --- [           main] c.vinsguru.saga.config.WebClientConfig   : paymentClient is invoked from orchestrator :: http://paymentservice:8082
+2021-05-17 03:21:14.753  INFO 1 --- [           main] c.vinsguru.saga.config.WebClientConfig   : inventoryClient is invoked from orchestrator :: http://inventoryservice:8081
+2021-05-17 03:21:14.774  INFO 1 --- [           main] c.v.saga.config.OrchestratorConfig       : Orchestrator  process called :: {}
+2021-05-17 03:21:28.309  INFO 1 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-17 03:21:29.810  INFO 1 --- [           main] o.s.c.s.binder.DefaultBinderFactory      : Creating binder: kafka
+2021-05-17 03:21:31.700  INFO 1 --- [           main] o.s.c.s.binder.DefaultBinderFactory      : Caching the binder: kafka
+2021-05-17 03:21:31.710  INFO 1 --- [           main] o.s.c.s.binder.DefaultBinderFactory      : Retrieving cached binder: kafka
+2021-05-17 03:21:32.196  INFO 1 --- [           main] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'application.processor-in-0' has 1 subscriber(s).
+2021-05-17 03:21:32.717  INFO 1 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2021-05-17 03:21:32.718  INFO 1 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
+2021-05-17 03:21:32.721  INFO 1 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2021-05-17 03:21:32.727  INFO 1 --- [           main] o.s.c.s.binder.DefaultBinderFactory      : Retrieving cached binder: kafka
+2021-05-17 03:21:33.082  INFO 1 --- [           main] o.s.c.s.b.k.p.KafkaTopicProvisioner      : Using kafka topic for outbound: order-updated
+2021-05-17 03:21:33.101  INFO 1 --- [           main] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [broker:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-17 03:21:35.856  INFO 1 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:21:35.857  INFO 1 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:21:35.857  INFO 1 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221695853
+2021-05-17 03:21:37.257  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:37.365  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:37.467  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:37.670  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:38.077  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:38.983  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:40.117  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:41.149  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:42.056  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:42.970  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:43.895  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:45.025  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:45.862  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:46.972  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:47.781  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:48.799  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:49.924  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:51.035  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:52.145  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:53.051  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:54.058  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:55.065  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:55.869  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:56.774  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:57.785  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:58.891  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:21:59.997  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:00.904  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:01.812  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:02.717  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:03.722  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:04.629  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:05.546  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:05.943  INFO 1 --- [| adminclient-1] o.a.k.c.a.i.AdminMetadataManager         : [AdminClient clientId=adminclient-1] Metadata update failed
+
+org.apache.kafka.common.errors.TimeoutException: Call(callName=fetchMetadata, deadlineMs=1621221725935, tries=1, nextAllowedTryMs=1621221726036) timed out at 1621221725936 after 1 attempt(s)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting for a node assignment.
+
+2021-05-17 03:22:06.488  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:07.602  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:08.816  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:09.823  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:10.830  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:12.043  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:13.149  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:14.055  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:14.962  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:15.871  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:16.984  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:17.899  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:19.111  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:20.321  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:21.327  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:22.534  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:23.442  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:24.555  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:25.460  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:26.465  WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (broker/172.18.0.5:9092) could not be established. Broker may not be available.
+2021-05-17 03:22:29.384 ERROR 1 --- [           main] o.s.cloud.stream.binding.BindingService  : Failed to create producer binding; retrying in 30 seconds
+
+org.springframework.cloud.stream.provisioning.ProvisioningException: Provisioning exception encountered for order-updated; nested exception is java.util.concurrent.TimeoutException
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopic(KafkaTopicProvisioner.java:346) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.provisionProducerDestination(KafkaTopicProvisioner.java:162) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.provisionProducerDestination(KafkaTopicProvisioner.java:86) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindProducer(AbstractMessageChannelBinder.java:223) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindProducer(AbstractMessageChannelBinder.java:91) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindProducer(AbstractBinder.java:152) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.doBindProducer(BindingService.java:313) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.bindProducer(BindingService.java:282) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.bindProducer(BindingService.java:291) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.AbstractBindableProxyFactory.createAndBindOutputs(AbstractBindableProxyFactory.java:136) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.OutputBindingLifecycle.doStartWithBindable(OutputBindingLifecycle.java:58) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at java.base/java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:647) ~[na:na]
+	at org.springframework.cloud.stream.binding.AbstractBindingLifecycle.start(AbstractBindingLifecycle.java:57) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.OutputBindingLifecycle.start(OutputBindingLifecycle.java:34) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:935) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:63) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:782) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:774) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:339) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1340) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1329) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at com.vinsguru.saga.OrchestratorApplication.main(OrchestratorApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[app.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[app.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[app.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:88) ~[app.jar:0.0.1-SNAPSHOT]
+Caused by: java.util.concurrent.TimeoutException: null
+	at org.apache.kafka.common.internals.KafkaFutureImpl$SingleWaiter.await(KafkaFutureImpl.java:108) ~[kafka-clients-2.6.0.jar!/:na]
+	at org.apache.kafka.common.internals.KafkaFutureImpl.get(KafkaFutureImpl.java:272) ~[kafka-clients-2.6.0.jar!/:na]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopicAndPartitions(KafkaTopicProvisioner.java:382) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopicIfNecessary(KafkaTopicProvisioner.java:356) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopic(KafkaTopicProvisioner.java:333) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	... 37 common frames omitted
+
+2021-05-17 03:22:29.440  INFO 1 --- [           main] o.s.c.s.binder.DefaultBinderFactory      : Retrieving cached binder: kafka
+2021-05-17 03:22:29.709  INFO 1 --- [           main] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [broker:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-17 03:22:29.739  INFO 1 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:22:29.740  INFO 1 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:22:29.740  INFO 1 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221749739
+2021-05-17 03:22:29.865  WARN 1 --- [           main] o.s.c.s.b.k.p.KafkaTopicProvisioner      : Attempt to create topic: order-created. Topic already exists.
+2021-05-17 03:22:29.891 ERROR 1 --- [           main] o.s.cloud.stream.binding.BindingService  : Failed to create consumer binding; retrying in 30 seconds
+
+org.springframework.cloud.stream.provisioning.ProvisioningException: Provisioning exception encountered for order-created; nested exception is java.util.concurrent.ExecutionException: org.apache.kafka.common.errors.UnknownTopicOrPartitionException: This server does not host this topic-partition.
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.doProvisionConsumerDestination(KafkaTopicProvisioner.java:252) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.provisionConsumerDestination(KafkaTopicProvisioner.java:197) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.provisionConsumerDestination(KafkaTopicProvisioner.java:86) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:403) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:91) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.doBindConsumer(BindingService.java:176) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.bindConsumer(BindingService.java:133) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.AbstractBindableProxyFactory.createAndBindInputs(AbstractBindableProxyFactory.java:112) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.doStartWithBindable(InputBindingLifecycle.java:58) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at java.base/java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:647) ~[na:na]
+	at org.springframework.cloud.stream.binding.AbstractBindingLifecycle.start(AbstractBindingLifecycle.java:57) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.start(InputBindingLifecycle.java:34) ~[spring-cloud-stream-3.1.2.jar!/:3.1.2]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:935) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586) ~[spring-context-5.3.6.jar!/:5.3.6]
+	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:63) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:782) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:774) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:339) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1340) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1329) ~[spring-boot-2.4.5.jar!/:2.4.5]
+	at com.vinsguru.saga.OrchestratorApplication.main(OrchestratorApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[app.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[app.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[app.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:88) ~[app.jar:0.0.1-SNAPSHOT]
+Caused by: java.util.concurrent.ExecutionException: org.apache.kafka.common.errors.UnknownTopicOrPartitionException: This server does not host this topic-partition.
+	at org.apache.kafka.common.internals.KafkaFutureImpl.wrapAndThrow(KafkaFutureImpl.java:45) ~[kafka-clients-2.6.0.jar!/:na]
+	at org.apache.kafka.common.internals.KafkaFutureImpl.access$000(KafkaFutureImpl.java:32) ~[kafka-clients-2.6.0.jar!/:na]
+	at org.apache.kafka.common.internals.KafkaFutureImpl$SingleWaiter.await(KafkaFutureImpl.java:104) ~[kafka-clients-2.6.0.jar!/:na]
+	at org.apache.kafka.common.internals.KafkaFutureImpl.get(KafkaFutureImpl.java:272) ~[kafka-clients-2.6.0.jar!/:na]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.doProvisionConsumerDestination(KafkaTopicProvisioner.java:241) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar!/:3.1.2]
+	... 36 common frames omitted
+Caused by: org.apache.kafka.common.errors.UnknownTopicOrPartitionException: This server does not host this topic-partition.
+
+2021-05-17 03:22:30.152  INFO 1 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8083
+2021-05-17 03:22:30.174  INFO 1 --- [           main] c.vinsguru.saga.OrchestratorApplication  : Started OrchestratorApplication in 94.485 seconds (JVM running for 100.554)
+2021-05-17 03:22:59.437  INFO 1 --- [ask-scheduler-1] o.s.c.s.b.k.p.KafkaTopicProvisioner      : Using kafka topic for outbound: order-updated
+2021-05-17 03:22:59.440  INFO 1 --- [ask-scheduler-1] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [broker:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-17 03:22:59.478  INFO 1 --- [ask-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:22:59.479  INFO 1 --- [ask-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:22:59.479  INFO 1 --- [ask-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221779478
+2021-05-17 03:22:59.634  INFO 1 --- [ask-scheduler-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	bootstrap.servers = [broker:9092]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = false
+	interceptor.classes = []
+	internal.auto.downgrade.txn.commit = true
+	key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+2021-05-17 03:22:59.760  INFO 1 --- [ask-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:22:59.760  INFO 1 --- [ask-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:22:59.760  INFO 1 --- [ask-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221779760
+2021-05-17 03:22:59.792  INFO 1 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: KhQemS5mQZa1-g8Pi10nBQ
+2021-05-17 03:22:59.796  INFO 1 --- [ask-scheduler-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-1] Closing the Kafka producer with timeoutMillis = 30000 ms.
+2021-05-17 03:22:59.838  INFO 1 --- [ask-scheduler-1] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'application.processor-out-0' has 1 subscriber(s).
+2021-05-17 03:22:59.909  INFO 1 --- [ask-scheduler-2] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [broker:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-17 03:22:59.947  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:22:59.947  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:22:59.947  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221779947
+2021-05-17 03:23:00.027  INFO 1 --- [ask-scheduler-2] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 100
+	auto.offset.reset = latest
+	bootstrap.servers = [broker:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = anonymous.64407bc4-414b-445a-8452-fd951b825fc6
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2021-05-17 03:23:00.159  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:23:00.160  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:23:00.160  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221780159
+2021-05-17 03:23:00.196  INFO 1 --- [ask-scheduler-2] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-1, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Cluster ID: KhQemS5mQZa1-g8Pi10nBQ
+2021-05-17 03:23:00.315  INFO 1 --- [ask-scheduler-2] o.s.c.stream.binder.BinderErrorChannel   : Channel 'order-created.anonymous.64407bc4-414b-445a-8452-fd951b825fc6.errors' has 1 subscriber(s).
+2021-05-17 03:23:00.316  INFO 1 --- [ask-scheduler-2] o.s.c.stream.binder.BinderErrorChannel   : Channel 'order-created.anonymous.64407bc4-414b-445a-8452-fd951b825fc6.errors' has 0 subscriber(s).
+2021-05-17 03:23:00.316  INFO 1 --- [ask-scheduler-2] o.s.c.stream.binder.BinderErrorChannel   : Channel 'order-created.anonymous.64407bc4-414b-445a-8452-fd951b825fc6.errors' has 1 subscriber(s).
+2021-05-17 03:23:00.317  INFO 1 --- [ask-scheduler-2] o.s.c.stream.binder.BinderErrorChannel   : Channel 'order-created.anonymous.64407bc4-414b-445a-8452-fd951b825fc6.errors' has 2 subscriber(s).
+2021-05-17 03:23:00.365  INFO 1 --- [ask-scheduler-2] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 100
+	auto.offset.reset = latest
+	bootstrap.servers = [broker:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = anonymous.64407bc4-414b-445a-8452-fd951b825fc6
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2021-05-17 03:23:00.389  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:23:00.389  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:23:00.389  INFO 1 --- [ask-scheduler-2] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221780389
+2021-05-17 03:23:00.402  INFO 1 --- [ask-scheduler-2] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Subscribed to topic(s): order-created
+2021-05-17 03:23:00.408  INFO 1 --- [ask-scheduler-2] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService
+2021-05-17 03:23:00.422  INFO 1 --- [ask-scheduler-2] s.i.k.i.KafkaMessageDrivenChannelAdapter : started org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter@4a7b72b7
+2021-05-17 03:23:00.467  INFO 1 --- [container-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Cluster ID: KhQemS5mQZa1-g8Pi10nBQ
+2021-05-17 03:23:00.484  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Discovered group coordinator broker:9092 (id: 2147483646 rack: null)
+2021-05-17 03:23:00.492  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] (Re-)joining group
+2021-05-17 03:23:00.566  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Join group failed with org.apache.kafka.common.errors.MemberIdRequiredException: The group member needs to have a valid member id before actually entering a consumer group.
+2021-05-17 03:23:00.567  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] (Re-)joining group
+2021-05-17 03:23:00.595  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Finished assignment for group at generation 1: {consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2-a07f4292-0489-481f-b6d0-1742acb2e71f=Assignment(partitions=[order-created-0])}
+2021-05-17 03:23:00.611  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Successfully joined group with generation 1
+2021-05-17 03:23:00.614  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Notifying assignor about the new Assignment(partitions=[order-created-0])
+2021-05-17 03:23:00.628  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Adding newly assigned partitions: order-created-0
+2021-05-17 03:23:00.648  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Found no committed offset for partition order-created-0
+2021-05-17 03:23:00.676  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Found no committed offset for partition order-created-0
+2021-05-17 03:23:00.701  INFO 1 --- [container-0-C-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-anonymous.64407bc4-414b-445a-8452-fd951b825fc6-2, groupId=anonymous.64407bc4-414b-445a-8452-fd951b825fc6] Resetting offset for partition order-created-0 to offset 1.
+2021-05-17 03:23:00.719  INFO 1 --- [container-0-C-1] o.s.c.s.b.k.KafkaMessageChannelBinder$2  : anonymous.64407bc4-414b-445a-8452-fd951b825fc6: partitions assigned: [order-created-0]
+2021-05-17 03:24:00.911  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:24:00.915  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@9083b5d
+2021-05-17 03:24:00.915  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@5f3eead8
+2021-05-17 03:24:02.955  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:24:03.032  INFO 1 --- [or-http-epoll-4] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:24:03.032  INFO 1 --- [or-http-epoll-4] c.v.saga.service.OrchestratorService     : updating response dto with completed status 
+Status : ORDER_COMPLETED
+2021-05-17 03:24:03.076  INFO 1 --- [or-http-epoll-4] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	bootstrap.servers = [broker:9092]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = producer-2
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = false
+	interceptor.classes = []
+	internal.auto.downgrade.txn.commit = true
+	key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+2021-05-17 03:24:03.091  INFO 1 --- [or-http-epoll-4] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-17 03:24:03.093  INFO 1 --- [or-http-epoll-4] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-17 03:24:03.096  INFO 1 --- [or-http-epoll-4] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621221843091
+2021-05-17 03:24:03.128  INFO 1 --- [ad | producer-2] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-2] Cluster ID: KhQemS5mQZa1-g8Pi10nBQ
+2021-05-17 03:28:23.980  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:28:23.981  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@5eab521a
+2021-05-17 03:28:23.981  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@67dcf327
+2021-05-17 03:28:24.015  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:28:24.023  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:28:24.024  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : updating response dto with completed status 
+Status : ORDER_COMPLETED
+2021-05-17 03:28:42.168  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:28:42.169  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@18cabce9
+2021-05-17 03:28:42.170  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@7203b790
+2021-05-17 03:28:42.192  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:28:42.194  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:28:42.195  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : updating response dto with completed status 
+Status : ORDER_COMPLETED
+2021-05-17 03:29:26.161  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:29:26.161  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@4675c935
+2021-05-17 03:29:26.162  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@2925595c
+2021-05-17 03:29:26.195  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:29:26.197  INFO 1 --- [or-http-epoll-4] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:29:26.198  INFO 1 --- [or-http-epoll-4] c.v.saga.service.OrchestratorService     : updating response dto with completed status 
+Status : ORDER_COMPLETED
+2021-05-17 03:29:52.658  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:29:52.658  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@101c6ac3
+2021-05-17 03:29:52.658  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@13f02e25
+2021-05-17 03:29:52.713  INFO 1 --- [or-http-epoll-4] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:29:52.714  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: true
+2021-05-17 03:29:52.715  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : updating response dto with completed status 
+Status : ORDER_COMPLETED
+2021-05-17 03:29:52.895  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:29:52.895  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@219f7954
+2021-05-17 03:29:52.895  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@330cfa44
+2021-05-17 03:29:52.926  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: false
+Status : ORDER_CANCELLED
+2021-05-17 03:29:53.072  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:29:53.072  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@7e686976
+2021-05-17 03:29:53.072  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@2ae27225
+2021-05-17 03:29:53.095  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: false
+Status : ORDER_CANCELLED
+2021-05-17 03:29:53.316  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing workflow with steps **
+2021-05-17 03:29:53.316  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing paymentStep with steps ** com.vinsguru.saga.service.steps.PaymentStep@2ed95a8d
+2021-05-17 03:29:53.316  INFO 1 --- [container-0-C-1] c.v.saga.service.OrchestratorService     : ** Constructing inventoryStep with steps ** com.vinsguru.saga.service.steps.InventoryStep@17136629
+2021-05-17 03:29:53.351  INFO 1 --- [or-http-epoll-3] c.v.saga.service.OrchestratorService     : outcome of process ::: false
+Status : ORDER_CANCELLED

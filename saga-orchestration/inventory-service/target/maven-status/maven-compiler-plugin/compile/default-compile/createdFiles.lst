@@ -1,0 +1,3 @@
+com\vinsguru\inventory\controller\InventoryController.class
+com\vinsguru\inventory\service\InventoryService.class
+com\vinsguru\inventory\InventoryApplication.class

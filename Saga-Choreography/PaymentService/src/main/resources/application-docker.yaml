@@ -1,0 +1,27 @@
+---
+spring:
+  application:
+    name: payment-app
+  cloud:
+    stream:
+      bindings:
+        paymentProcessor-in-0:
+          destination: order-event
+        paymentProcessor-out-0:
+          destination: payment-event
+      function:
+        definition: paymentProcessor
+  kafka:
+    bootstrap-servers: "broker:9092"
+    enabled: true
+  r2dbc:
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+    password: "${SPRING_DATASOURCE_PASSWORD}"
+    url: "${SPRING_DATASOURCE_URL}"
+    username: "${SPRING_DATASOURCE_USERNAME}"
+  config:
+    activate:
+      on-profile: docker

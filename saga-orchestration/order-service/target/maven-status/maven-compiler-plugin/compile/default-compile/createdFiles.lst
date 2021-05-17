@@ -1,0 +1,8 @@
+com\vinsguru\order\entity\PurchaseOrder.class
+com\vinsguru\order\OrderServiceApplication.class
+com\vinsguru\order\service\OrderService.class
+com\vinsguru\order\config\OrderConfig.class
+com\vinsguru\order\repository\PurchaseOrderRepository.class
+com\vinsguru\order\controller\OrderController.class
+com\vinsguru\order\eventhandlers\OrderEventHandler.class
+com\vinsguru\order\service\OrderEventUpdateService.class
